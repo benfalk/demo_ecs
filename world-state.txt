@@ -1,0 +1,17 @@
+ComponentType Cord .Cord, demo_ecs
+ComponentType Identity .Identity, demo_ecs
+
+Entity 1
+Component Cord {
+	X 1
+	Y 1
+}
+
+Entity 2
+Component Cord {
+	X 2
+	Y 2
+}
+Component Identity {
+	Name Ben
+}
