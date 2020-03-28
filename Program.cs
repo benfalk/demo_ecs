@@ -2,6 +2,7 @@
 using System.IO;
 using DefaultEcs;
 using DefaultEcs.Serialization;
+using DemoECS.Component;
 
 namespace demo_ecs
 {
@@ -14,9 +15,11 @@ namespace demo_ecs
         {
             LoadWorld();
 
-
             Console.WriteLine("All known by a name:");
-            var unidentifiables = world.GetEntities().With<Identity>().AsSet();
+            foreach(var entity in world.GetEntities().With<Identity>().AsSet().GetEntities())
+            {
+                Console.WriteLine(entity.Get<Identity>().Name);
+            }
 
             SaveWorld();
         }

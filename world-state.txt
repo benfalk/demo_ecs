@@ -1,17 +1,29 @@
-ComponentType Cord .Cord, demo_ecs
-ComponentType Identity .Identity, demo_ecs
+ComponentType Cord DemoECS.Component.Cord, demo_ecs
+ComponentType Identity DemoECS.Component.Identity, demo_ecs
 
 Entity 1
 Component Cord {
+	CordId 0
+	Entity {
+		EntityId 0
+	}
 	X 1
 	Y 1
 }
 
 Entity 2
 Component Cord {
+	CordId 0
+	Entity {
+		EntityId 0
+	}
 	X 2
 	Y 2
 }
 Component Identity {
+	IdentityId 0
+	Entity {
+		EntityId 0
+	}
 	Name Ben
 }
