@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using DefaultEcs.Serialization;
 using DemoECS.Component;
@@ -10,6 +11,18 @@ namespace DemoECS.DbStuff
         public static T TryGet<T>(this DefaultEcs.Entity entity, T defaltValue = null)
             where T : class
             => entity.Has<T>() ? entity.Get<T>() : defaltValue;
+    }
+
+    static class ICollectionExtensions
+    {
+        public static void ApplyToEntity<T>(this ICollection<T> collection, DefaultEcs.Entity entity)
+        {
+            var comp = collection.FirstOrDefault();
+            if (comp != null)
+            {
+                entity.Set(comp);
+            }
+        }
     }
 
     public class WorldSerializer
@@ -46,19 +59,9 @@ namespace DemoECS.DbStuff
             foreach(var persistence in persistences)
             {
                 var entity = world.CreateEntity();
-                entity.Set<Persistence>(persistence);
-
-                var cord = persistence.Cords.FirstOrDefault();
-                if (cord != null)
-                {
-                    entity.Set<Cord>(cord);
-                }
-
-                var identity = persistence.Identities.FirstOrDefault();
-                if (identity != null)
-                {
-                    entity.Set<Identity>(identity);
-                }
+                entity.Set(persistence);
+                persistence.Cords.ApplyToEntity(entity);
+                persistence.Identities.ApplyToEntity(entity);
             }
         }
     }
