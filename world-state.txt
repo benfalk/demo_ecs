@@ -4,18 +4,15 @@ ComponentType Persistence DemoECS.Component.Persistence, demo_ecs
 
 Entity 1
 Component Cord {
-	CordId 0
+	Id 0
 	Persistence null
 	X 1
 	Y 1
 }
-Component Persistence {
-	PersistenceId 0
-}
 
 Entity 2
 Component Cord {
-	CordId 1
+	Id 1
 	Persistence {
 		PersistenceId 1
 	}
@@ -23,7 +20,7 @@ Component Cord {
 	Y 2
 }
 Component Identity {
-	IdentityId 1
+	Id 1
 	Persistence {
 		PersistenceId 1
 	}

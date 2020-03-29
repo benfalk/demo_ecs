@@ -9,32 +9,24 @@ namespace demo_ecs
 {
     class Program
     {
-        private static World world = new World();
+        private static World World = new World();
         private const string world_state_file_path = "world-state.txt";
-        private static CompenentSerializer Serializer = new CompenentSerializer();
 
         static void Main(string[] args)
         {
-            LoadWorld();
-
-            foreach(Entity entity in world)
-            {
-                if(!entity.Has<Persistence>())
-                {
-                    entity.Set<Persistence>(new Persistence());
-                }
-            }
+            // LoadWorld();
+            WorldSerializer.Load(World);
+            Console.WriteLine("We loaded the world!");
 
             Console.WriteLine("All known by a name:");
-            foreach(var entity in world.GetEntities().With<Identity>().AsSet().GetEntities())
+            foreach(var entity in World.GetEntities().With<Identity>().AsSet().GetEntities())
             {
                 Console.WriteLine(entity.Get<Identity>().Name);
-                entity.ReadAllComponents(Serializer);
             }
 
-            Serializer.Context.SaveChanges();
-
-            SaveWorld();
+            WorldSerializer.Serialze(World);
+            Console.WriteLine("We saved the world!");
+            // SaveWorld();
         }
 
         private static void LoadWorld()
@@ -43,7 +35,7 @@ namespace demo_ecs
 
             using (Stream stream = File.OpenRead(world_state_file_path))
             {
-                world = serializer.Deserialize(stream);
+                World = serializer.Deserialize(stream);
             }
         }
 
@@ -53,7 +45,7 @@ namespace demo_ecs
 
             using (Stream stream = File.Create(world_state_file_path))
             {
-                serializer.Serialize(stream, world);
+                serializer.Serialize(stream, World);
             }
         }
     }
