@@ -2,10 +2,10 @@ using DemoECS;
 
 namespace DemoECS.Component
 {
-    public struct Identity
+    public class Identity : IPersistable
     {
-        public int IdentityId;
-        public Entity Entity;
-        public string Name;
+        public int IdentityId { get; set; }
+        public Persistence Persistence { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -3,23 +3,36 @@ using System.IO;
 using DefaultEcs;
 using DefaultEcs.Serialization;
 using DemoECS.Component;
+using DemoECS.DbStuff;
 
 namespace demo_ecs
 {
     class Program
     {
         private static World world = new World();
-        private static string world_state_file_path = "world-state.txt";
+        private const string world_state_file_path = "world-state.txt";
+        private static CompenentSerializer Serializer = new CompenentSerializer();
 
         static void Main(string[] args)
         {
             LoadWorld();
 
+            foreach(Entity entity in world)
+            {
+                if(!entity.Has<Persistence>())
+                {
+                    entity.Set<Persistence>(new Persistence());
+                }
+            }
+
             Console.WriteLine("All known by a name:");
             foreach(var entity in world.GetEntities().With<Identity>().AsSet().GetEntities())
             {
                 Console.WriteLine(entity.Get<Identity>().Name);
+                entity.ReadAllComponents(Serializer);
             }
+
+            Serializer.Context.SaveChanges();
 
             SaveWorld();
         }

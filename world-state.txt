@@ -1,29 +1,34 @@
 ComponentType Cord DemoECS.Component.Cord, demo_ecs
 ComponentType Identity DemoECS.Component.Identity, demo_ecs
+ComponentType Persistence DemoECS.Component.Persistence, demo_ecs
 
 Entity 1
 Component Cord {
 	CordId 0
-	Entity {
-		EntityId 0
-	}
+	Persistence null
 	X 1
 	Y 1
+}
+Component Persistence {
+	PersistenceId 0
 }
 
 Entity 2
 Component Cord {
-	CordId 0
-	Entity {
-		EntityId 0
+	CordId 1
+	Persistence {
+		PersistenceId 1
 	}
 	X 2
 	Y 2
 }
 Component Identity {
-	IdentityId 0
-	Entity {
-		EntityId 0
+	IdentityId 1
+	Persistence {
+		PersistenceId 1
 	}
 	Name Ben
+}
+Component Persistence {
+	PersistenceId 1
 }
